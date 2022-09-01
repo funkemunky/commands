@@ -109,6 +109,8 @@ class Annotations<M extends CommandManager> extends AnnotationLookups {
             return object.getAnnotation(annoClass);
         } else {
             for (Annotation otherAnnotation : object.getDeclaredAnnotations()) {
+                if(otherAnnotation == null || otherAnnotation.annotationType() == null || otherAnnotation.annotationType().getPackage() == null)
+                    continue;
                 if (!otherAnnotation.annotationType().getPackage().getName().startsWith("java.")) {
                     if (checked.contains(otherAnnotation)) return null;
                     checked.add(otherAnnotation);
